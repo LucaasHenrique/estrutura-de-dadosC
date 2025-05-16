@@ -81,6 +81,40 @@ void libera(Lista *list) {
     }
 }
 
+// imprime elementos de forma recursiva!!
+void imprime_rec(Lista *list) {
+
+    if (vazia(list)) return;
+
+    printf("info: %d\n", list->info);
+    imprime_rec(list->prox);
+}
+
+// retira elemento recursivamente
+Lista* retira_rec(Lista *list, int num) {
+
+    if (vazia(list)) return list;
+
+    if (list->info == num) {
+         Lista* t = list;
+         list = list->prox;
+         free(t);
+
+    } else {
+        list->prox = retira_rec(list->prox, num);
+    }
+
+    return list;
+}
+
+void libera_rec(Lista *list) {
+
+    if (!vazia(list)) {
+        libera_rec(list->prox);
+        free(list);
+    }
+}
+
 int main(int argc, char *argv[]) {
     Lista *list;
     list = inicializa();
@@ -93,19 +127,28 @@ int main(int argc, char *argv[]) {
     list = insere(list, 421);
     list = insere(list, 931);
 
-    imprime(list);
+    //imprime(list);
     printf("\n");
 
     retira(list, 23);
 
-    imprime(list);
+    //imprime(list);
     printf("\n");
 
     retira(list, 421);
 
-    imprime(list);
+    //imprime(list);
     printf("\n");
 
+
+    imprime_rec(list);
+    printf("\n");
+
+
+    retira_rec(list, 931);
+    imprime(list);
+
     libera(list);
+
     return 0;
 }

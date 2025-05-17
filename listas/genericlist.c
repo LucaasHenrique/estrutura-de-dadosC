@@ -62,6 +62,11 @@ ListaGen* cria_cir(float r) {
     return list;
 }
 
+ListaGen* insere_no(ListaGen* list, ListaGen* novo) {
+    novo->prox = list;
+    return novo;
+}
+
 int vazia(ListaGen *list) {
     return list == NULL;
 }
@@ -73,10 +78,39 @@ void imprime_lista(ListaGen *list) {
     imprime_lista(list->prox);
 }
 
+float area(ListaGen* l) {
+    float a;
+
+    switch (l->tipo) {
+        case RET:
+            Retangulo *r = (Retangulo*) l->info;
+            a = r->b * r->h;
+            break;
+
+        case TRI:
+            Triangulo *t = (Triangulo*) l->info;
+            a = t->b * t->h;
+            break;
+        case CIR:
+            Circulo *cir = (Circulo*) l->info;
+            a = 3.14 * (cir->r * cir->r);
+            break;
+    }
+    return a;
+}
+
 int main(int argc, char *argv[]) {
 
     ListaGen *list;
+    list = NULL;
 
-    list = cria_ret(50, 20);
+    list = insere_no(list, cria_cir(20));
+    //list = insere_no(list, cria_tri(20, 10));
+    //list = insere_no(list, cria_ret(50, 20));
 
+    imprime_lista(list);
+
+    printf("area do circulo: %2.f\n", area(list));
+
+    free(list);
 }

@@ -105,12 +105,12 @@ int main(int argc, char *argv[]) {
     list = NULL;
 
     list = insere_no(list, cria_cir(20));
-    //list = insere_no(list, cria_tri(20, 10));
+    list = insere_no(list, cria_tri(20, 10));
     //list = insere_no(list, cria_ret(50, 20));
 
     imprime_lista(list);
 
-    printf("area do circulo: %2.f\n", area(list));
+    //printf("area do circulo: %2.f\n", area(list));
 
     free(list);
 }
